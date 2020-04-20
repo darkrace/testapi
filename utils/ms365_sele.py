@@ -61,11 +61,10 @@ class MS365():
         delay = 10
         self.driver.find_element_by_xpath("//input[@id='hipVerificationCodeInput']").send_keys(code)
         self.driver.find_element_by_xpath("//button[@data-bi-id='SignupNext']").click()
-        WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[contains(@id,'CheckAvailabilityButton')]")))
-        self.driver.find_element_by_xpath("//input[@id='domain']").send_keys(self.org)
-        self.driver.find_element_by_xpath("//button[contains(@id,'CheckAvailabilityButton')]").click()
-        WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@id='moeraNextButton']")))
         time.sleep(2)
+        self.driver.find_element_by_xpath("//input[@id='domain']").send_keys(self.org)
+
+        time.sleep(4)
         self.driver.find_element_by_xpath("//button[@id='moeraNextButton']").click()
         time.sleep(4)
         self.driver.find_element_by_xpath("//input[@id='username']").send_keys("dark")
@@ -73,8 +72,7 @@ class MS365():
         self.driver.find_element_by_xpath("//input[@formcontrolname='confirmPassword']").send_keys("C1sco1234!")
         time.sleep(2)
         self.driver.find_element_by_xpath("//button[@data-bi-id='SignupNext']").click()
-
-        time.sleep(2)
+        time.sleep(3)
         self.driver.close()
         print("ok")
         return {"email":self.email, "phone":"","org":self.org}
