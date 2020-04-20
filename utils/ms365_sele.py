@@ -19,7 +19,7 @@ class MS365():
         chrome_options.add_argument('--disable-dev-shm-usage')
         uniq = self.gen_uid()
         self.email = "superman_" + str(uniq) + "@techmonkey.com"
-        self.org = "ironman" + ''.join(random.sample('0123456789', 5))
+        self.org = "theironman" + ''.join(random.sample('0123456789', 5))
         self.driver = webdriver.Chrome(
             executable_path=os.path.abspath(BASE_DIR+"/driver/chromedriver"),
             chrome_options=chrome_options)
@@ -61,12 +61,11 @@ class MS365():
         delay = 10
         self.driver.find_element_by_xpath("//input[@id='hipVerificationCodeInput']").send_keys(code)
         self.driver.find_element_by_xpath("//button[@data-bi-id='SignupNext']").click()
-        time.sleep(2)
+        time.sleep(4)
         self.driver.find_element_by_xpath("//input[@id='domain']").send_keys(self.org)
-
         time.sleep(4)
         self.driver.find_element_by_xpath("//button[@id='moeraNextButton']").click()
-        time.sleep(4)
+        time.sleep(6)
         self.driver.find_element_by_xpath("//input[@id='username']").send_keys("dark")
         self.driver.find_element_by_xpath("//input[@formcontrolname='password']").send_keys("C1sco1234!")
         self.driver.find_element_by_xpath("//input[@formcontrolname='confirmPassword']").send_keys("C1sco1234!")
