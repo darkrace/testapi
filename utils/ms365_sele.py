@@ -1,0 +1,76 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import os
+import random
+import string
+import time
+import pathlib
+from testapi.settings import BASE_DIR
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
+
+class MS365():
+    def __init__(self):
+        dir_path = pathlib.Path().absolute()
+        chrome_options = Options()
+        # chrome_options.add_argument("--headless")
+        uniq = self.gen_uid()
+        self.email = "superman_" + str(uniq) + "@techmonkey.com"
+        self.org = "justiceleague_" + str(uniq)
+        self.driver = webdriver.Chrome(
+            executable_path=os.path.abspath(BASE_DIR+"/driver/chromedriver"),
+            chrome_options=chrome_options)
+
+    def ms_create(self, number):
+        delay =10
+        self.driver.get("https://signup.microsoft.com/create-account/signup?products=467EAB54-127B-42D3-B046-3844B860BEBF")
+        WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and contains(.,'Next')]")))
+        self.driver.find_element_by_xpath("//input[contains(@class,'c-text-field')]").send_keys(self.email)
+        self.driver.find_element_by_xpath("//button[@type='submit' and contains(.,'Next')]").click()
+        WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and contains(@data-bi-name,'Set up account')]")))
+        self.driver.find_element_by_xpath("//button[@type='submit' and contains(@data-bi-name,'Set up account')]").click()
+        WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and contains(.,'Next')]")))
+        self.driver.find_element_by_xpath("//input[@name='given-name']").send_keys("dark")
+        self.driver.find_element_by_xpath("//input[@name='family-name']").send_keys("race")
+        self.driver.find_element_by_xpath("//input[@name='phonenumber']").send_keys(number)
+        self.driver.find_element_by_xpath("//input[@name='organization']").send_keys(self.org)
+        self.driver.find_element_by_xpath("//select[@formcontrolname='orgSize']").click()
+        time.sleep(1)
+        self.driver.find_element_by_xpath("//option[@value='1']").click()
+        self.driver.execute_script("return document.getElementById('regionDropdown').value = 'UK'")
+        self.driver.find_element_by_xpath("//button[@type='submit' and contains(.,'Next')]").click()
+        WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@id='verificationButton']")))
+        self.driver.execute_script("return document.querySelector('.mwf-select').value = '(+44)'")
+        self.driver.find_element_by_xpath("//button[@id='verificationButton']").click()
+
+        try:
+            WebDriverWait(self.driver, delay).until(
+                EC.presence_of_element_located((By.XPATH, "//input[@id='hipVerificationCodeInput']")))
+            return {"message": "ok enter verify code." , "color":"green","flag": True }
+        except:
+            return {"message": "Sorry, we need additional information to verify your identity. Please contact support.", "color":"red", "flag": True}
+
+    def phone_verify(self, code):
+        delay = 10
+        self.driver.find_element_by_xpath("//input[@id='hipVerificationCodeInput']").send_keys(code)
+        self.driver.find_element_by_xpath("//button[@data-bi-id='SignupNext']").click()
+        WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[contains(@id,'CheckAvailabilityButton')]")))
+        self.driver.find_element_by_xpath("//input[@id='domain']").send_keys(self.org)
+        self.driver.find_element_by_xpath("//button[contains(@id,'CheckAvailabilityButton')]").click()
+        WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@id='moeraNextButton']")))
+        self.driver.find_element_by_xpath("//button[@id='moeraNextButton']").click()
+        WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@data-bi-id='SignupNext']")))
+        self.driver.find_element_by_xpath("//input[@id='username']").send_keys("dark")
+        self.driver.find_element_by_xpath("//input[@formcontrolname='password']").send_keys("C1sco1234!")
+        self.driver.find_element_by_xpath("//input[@formcontrolname='confirmPassword']").send_keys("C1sco1234!")
+        time.sleep(1)
+        self.driver.find_element_by_xpath("//button[@data-bi-id='SignupNext']").click()
+        WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@id='SubscriptionSetupLink']")))
+        self.driver.find_element_by_xpath("//button[@id='SubscriptionSetupLink']").click()
+        time.sleep(5)
+        print("ok")
+    def gen_uid(self):
+        letters = string.ascii_lowercase
+        return ''.join(random.choice(letters) for i in range(4))

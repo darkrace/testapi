@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/st.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="flex-r container">
+        <div class="flex-c left">
+            <div class="content-header flex-c">
+                <div class="flex-r">
+                    <span class="get-btn">GET</span>
+                    <span class="heading">List Accounts</span>
+                </div>
+                <div class="sub-head">
+                    <span>Returns a list of accounts on your site. Results are ordered by the time created, sorted by newest first.</span>
+                </div>
+                <div class="content-container flex-c">
+                    <span class="cnt-head">Query paramas</span>
+                    <div>
+                        <ul>
+                            <li class="flex-r short-info">
+                                <span class="sm-head">state:</span>
+                                <div class="flex-c info">
+                                    <span class="sm-info">string</span>
+                                    <span class="sm-sub-info">The state of accounts to return:
+                                        <span class="special">active</span>,
+                                    <span class="special">closed</span>,
+                                    <span class="special">subscriber</span>,
+                                    <span class="special">non_subscriber</span>,
+                                    <span class="special">past_due</span>.
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="flex-r short-info">
+                                <span class="sm-head">sort:</span>
+                                <div class="flex-c info">
+                                    <span class="sm-info">string</span>
+                                    <code>created_at</code>
+                                    <span class="sm-sub-info">The attribute that will be used to order records:
+                                        <span class="special">created_at</span>,
+                                    <span class="special">updated_at</span>.
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="flex-r short-info">
+                                <span class="sm-head">order:</span>
+                                <div class="flex-c info">
+                                    <span class="sm-info">string</span>
+                                    <code>desc</code>
+                                    <span class="sm-sub-info">The order in which products will be returned:
+                                        <span class="special">asc</span>for ascending order,
+                                    <span class="special">desc</span>for descending order.
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="flex-r short-info">
+                                <span class="sm-head">begin_time:</span>
+                                <div class="flex-c info">
+                                    <span class="sm-info">datetime</span>
+                                    <span class="sm-sub-info">Operates on the attribute specified by the sort parameter.
+                                         Filters records to only include those with
+                                         datetimes greater than or equalto the supplied datetime. Accepts an ISO 8601 date or date and time.
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="flex-r short-info">
+                                <span class="sm-head">end_time:</span>
+                                <div class="flex-c info">
+                                    <span class="sm-info">datetime</span>
+                                    <span class="sm-sub-info">Operates on the attribute specified by the sort parameter.
+                                         Filters records to only include those with datetimes less than or equal to the supplied datetime.
+                                          Accepts an ISO 8601 date or date and time.
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="flex-r short-info">
+                                <span class="sm-head">per_page:</span>
+                                <div class="flex-c info">
+                                    <span class="sm-info">integer</span>
+                                    <code>50</code>
+                                    <span class="sm-sub-info">Number of records to return per page, up to a maximum of 200.
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="flex-r short-info">
+                                <span class="sm-head">cursor:</span>
+                                <div class="flex-c info">
+                                    <span class="sm-info">integer</span>
+                                    <span class="sm-sub-info">Splits records across pages. Leave blank to return the first page.
+                                         Follow the URI in the first page's Link header to fetch the next page.
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-c right">
+            <div class="flex-c header">
+                <span class="main-head">Definition</span>
+                <span class="subhead">https://:subdomain.recurly.com/v2/items</span>
+            </div>
+            <div class="tabs-container flex-c">
+                <span class="main-head">Examples</span>
+                <div class="tabs flex-c">
+                    <ul role="tablist" aria-label="Sample Tabs" class="flex-r">
+                        <li role="tab" class="tab-c" aria-selected="true" aria-controls="post" id="post-1" tabindex="0">POST</li>
+                        <li role="tab" aria-selected="false" aria-controls="get" id="get-2" tabindex="-1">GET</li>
+                        <li role="tab" aria-selected="false" aria-controls="put" id="put-3" tabindex="-1">PUT</li>
+                        <li role="tab" aria-selected="false" aria-controls="delete" id="delete-4" tabindex="-1">DELETE</li>
+                    </ul>
+                    <div id="post" class="temp" role="tabpanel" tabindex="0" aria-labelledby="post-1">
+                        <div class="flex-c">
+
+                            <h4>Request</h4>
+                            <input type="text">
+                            <h4>Paramas</h4>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div id="get" class="temp" role="tabpanel" tabindex="0" aria-labelledby="get-2" hidden>get</div>
+                    <div id="put" class="temp" role="tabpanel" tabindex="0" aria-labelledby="put-3" hidden>put</div>
+                    <div id="delete" class="temp" role="tabpanel" tabindex="0" aria-labelledby="delete-4" hidden>delete</div>
+                    <div class="btn-cnt"><button>Go</button></div>
+                </div>
+                <div class="flex-c results">
+                    <span class="main-head">Result format</span>
+                    <span class="tab flex-r"><span class="bdr"></span>200 OK</span>
+                    <div class="result-container temp">
+                        hello
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

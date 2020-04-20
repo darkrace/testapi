@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title></title>
+<!--    <link rel="stylesheet" href="{% static 'css/st.css' %}">-->
+    <link rel="stylesheet" href="{% static 'css/st2.css' %}">
+</head>
+<body>
+    {% if flag %}
+        <div class="alert" style="background-color: {{color}};">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          {{ message }}
+        </div>
+        <div class="login-form">
+            <form action="/" method="post">
+                {% csrf_token %}
+                <h2 class="text-center">MicroSoft</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="code" placeholder="Enter verification code">
+                    <input type="hidden" class="form-control" name="flag" value="T" >
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit" value="submit">Verify Code</button>
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <div class="login-form">
+            <form action="/" method="post">
+                {% csrf_token %}
+                <h2 class="text-center">MicroSoft</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="phone" placeholder="Enter phone number">
+                    <input type="hidden" class="form-control" name="flag" value="F" >
+
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit" value="submit">Create</button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+</body>
+</html>
