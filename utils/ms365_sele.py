@@ -34,6 +34,7 @@ class MS365():
         WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and contains(@data-bi-name,'Set up account')]")))
         self.driver.find_element_by_xpath("//button[@type='submit' and contains(@data-bi-name,'Set up account')]").click()
         WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and contains(.,'Next')]")))
+        self.driver.execute_script("return document.getElementById('regionDropdown').value = 'GB'")
         self.driver.find_element_by_xpath("//input[@name='given-name']").send_keys("dark")
         self.driver.find_element_by_xpath("//input[@name='family-name']").send_keys("race")
         self.driver.find_element_by_xpath("//input[@name='phonenumber']").send_keys(number)
@@ -41,7 +42,6 @@ class MS365():
         self.driver.find_element_by_xpath("//select[@formcontrolname='orgSize']").click()
         time.sleep(1)
         self.driver.find_element_by_xpath("//option[@value='1']").click()
-        self.driver.execute_script("return document.getElementById('regionDropdown').value = 'GB'")
         self.driver.find_element_by_xpath("//button[@type='submit' and contains(.,'Next')]").click()
         try:
             WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@id='verificationButton']")))
