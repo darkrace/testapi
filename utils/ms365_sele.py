@@ -15,8 +15,9 @@ class MS365():
     def __init__(self):
         dir_path = pathlib.Path().absolute()
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
-        # chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument('--disable-dev-shm-usage')
         uniq = self.gen_uid()
         self.email = "superman_" + str(uniq) + "@techmonkey.com"
         self.org = "justiceleague_" + str(uniq)
