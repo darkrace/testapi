@@ -43,8 +43,11 @@ class MS365():
         self.driver.find_element_by_xpath("//option[@value='1']").click()
         self.driver.execute_script("return document.getElementById('regionDropdown').value = 'GB'")
         self.driver.find_element_by_xpath("//button[@type='submit' and contains(.,'Next')]").click()
-        WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@id='verificationButton']")))
-        self.driver.execute_script("return document.querySelector('.mwf-select').value = '"+code+"'")
+        try:
+            WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@id='verificationButton']")))
+            self.driver.execute_script("return document.querySelector('.mwf-select').value = '" + code + "'")
+        except:
+            self.driver.execute_script("return document.querySelector('.mwf-select').value = '"+code+"'")
         self.driver.find_element_by_xpath("//button[@id='verificationButton']").click()
 
         try:
