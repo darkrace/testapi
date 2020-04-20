@@ -15,8 +15,8 @@ class MS365():
     def __init__(self):
         dir_path = pathlib.Path().absolute()
         chrome_options = Options()
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--no-sandbox")
+        # chrome_options.add_argument("--headless")
+        # chrome_options.add_argument("--no-sandbox")
         uniq = self.gen_uid()
         self.email = "superman_" + str(uniq) + "@techmonkey.com"
         self.org = "justiceleague_" + str(uniq)
@@ -24,7 +24,7 @@ class MS365():
             executable_path=os.path.abspath(BASE_DIR+"/driver/chromedriver"),
             chrome_options=chrome_options)
 
-    def ms_create(self, number):
+    def ms_create(self, number,code):
         delay =10
         self.driver.get("https://signup.microsoft.com/create-account/signup?products=467EAB54-127B-42D3-B046-3844B860BEBF")
         WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and contains(.,'Next')]")))
@@ -43,7 +43,7 @@ class MS365():
         self.driver.execute_script("return document.getElementById('regionDropdown').value = 'UK'")
         self.driver.find_element_by_xpath("//button[@type='submit' and contains(.,'Next')]").click()
         WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@id='verificationButton']")))
-        self.driver.execute_script("return document.querySelector('.mwf-select').value = '(+44)'")
+        self.driver.execute_script("return document.querySelector('.mwf-select').value = '"+code+"'")
         self.driver.find_element_by_xpath("//button[@id='verificationButton']").click()
 
         try:

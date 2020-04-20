@@ -48,7 +48,8 @@ class MS365View(View):
         if flag == "F":
             self.ms = MS365()
             phone = request.POST.get('phone')
-            result = self.ms.ms_create(phone)
+            code = request.POST.get('cd')
+            result = self.ms.ms_create(phone,code)
             return render(request, self.template_name, context=result)
 
         else:
