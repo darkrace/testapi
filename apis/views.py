@@ -17,7 +17,7 @@ from utils.ms365_sele import MS365
 from apis.models import WebexAuth
 from apis.serializers import WebexAuthSerializer, UserSerializer
 
-
+data = {"driver":None}
 class IndexView(View):
     template_name = 'test.html'
 
@@ -50,11 +50,13 @@ class MS365View(View):
             phone = request.POST.get('phone')
             code = request.POST.get('cd')
             result = self.ms.ms_create(phone,code)
+            data["driver"] = self.ms
             return render(request, self.template_name, context=result)
 
         else:
             code = request.POST.get('code')
-            result = self.ms.phone_verify(code)
+            drive = data["driver"]
+            result = drive.phone_verify(code)
             return render(request, "result.html", context=result)
 
 

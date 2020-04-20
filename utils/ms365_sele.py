@@ -4,7 +4,6 @@ import os
 import random
 import string
 import time
-import pathlib
 from testapi.settings import BASE_DIR
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,7 +12,6 @@ from selenium.common.exceptions import TimeoutException
 
 class MS365():
     def __init__(self):
-        dir_path = pathlib.Path().absolute()
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--no-sandbox")
@@ -49,13 +47,13 @@ class MS365():
         except:
             self.driver.execute_script("return document.querySelector('.mwf-select').value = '"+code+"'")
         self.driver.find_element_by_xpath("//button[@id='verificationButton']").click()
-
+        print(self.email)
         try:
             WebDriverWait(self.driver, delay).until(
                 EC.presence_of_element_located((By.XPATH, "//input[@id='hipVerificationCodeInput']")))
             return {"message": "ok enter verify code." , "color":"green","flag": True }
         except:
-            self.driver.close()
+            # self.driver.close()
             return {"message": "Sorry, we need additional information to verify your identity. Please contact support.", "color":"red", "flag": True}
 
     def phone_verify(self, code):
