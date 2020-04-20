@@ -18,14 +18,16 @@ class MS365():
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument('--disable-dev-shm-usage')
         uniq = self.gen_uid()
-        self.email = "superman_" + str(uniq) + "@techmonkey.com"
-        self.org = "theironman" + ''.join(random.sample('0123456789', 5))
+        self.email = ""
+        self.org = ""
         self.driver = webdriver.Chrome(
             executable_path=os.path.abspath(BASE_DIR+"/driver/chromedriver"),
             chrome_options=chrome_options)
         time.sleep(5)
     def ms_create(self, number,code):
         delay =10
+        self.email = "superman_" + str(''.join(random.sample('0123456789', 5))) + "@techmonkey.com"
+        self.org = "the01ironman" + ''.join(random.sample('0123456789', 3))
         self.driver.get("https://signup.microsoft.com/create-account/signup?products=467EAB54-127B-42D3-B046-3844B860BEBF&country=GB")
         WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and contains(.,'Next')]")))
         self.driver.find_element_by_xpath("//input[contains(@class,'c-text-field')]").send_keys(self.email)
@@ -65,7 +67,7 @@ class MS365():
         self.driver.find_element_by_xpath("//input[@id='domain']").send_keys(self.org)
         time.sleep(4)
         self.driver.find_element_by_xpath("//button[@id='moeraNextButton']").click()
-        time.sleep(6)
+        time.sleep(10)
         self.driver.find_element_by_xpath("//input[@id='username']").send_keys("dark")
         self.driver.find_element_by_xpath("//input[@formcontrolname='password']").send_keys("C1sco1234!")
         self.driver.find_element_by_xpath("//input[@formcontrolname='confirmPassword']").send_keys("C1sco1234!")
