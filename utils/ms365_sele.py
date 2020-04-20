@@ -23,7 +23,7 @@ class MS365():
         self.driver = webdriver.Chrome(
             executable_path=os.path.abspath(BASE_DIR+"/driver/chromedriver"),
             chrome_options=chrome_options)
-
+        time.sleep(5)
     def ms_create(self, number,code):
         delay =10
         self.driver.get("https://signup.microsoft.com/create-account/signup?products=467EAB54-127B-42D3-B046-3844B860BEBF")
