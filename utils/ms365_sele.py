@@ -65,6 +65,7 @@ class MS365():
         self.driver.find_element_by_xpath("//input[@id='domain']").send_keys(self.org)
         self.driver.find_element_by_xpath("//button[contains(@id,'CheckAvailabilityButton')]").click()
         WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@id='moeraNextButton']")))
+        time.sleep(2)
         self.driver.find_element_by_xpath("//button[@id='moeraNextButton']").click()
         time.sleep(4)
         self.driver.find_element_by_xpath("//input[@id='username']").send_keys("dark")
