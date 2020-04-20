@@ -51,6 +51,7 @@ class MS365():
                 EC.presence_of_element_located((By.XPATH, "//input[@id='hipVerificationCodeInput']")))
             return {"message": "ok enter verify code." , "color":"green","flag": True }
         except:
+            self.driver.close()
             return {"message": "Sorry, we need additional information to verify your identity. Please contact support.", "color":"red", "flag": True}
 
     def phone_verify(self, code):
@@ -71,7 +72,9 @@ class MS365():
         WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@id='SubscriptionSetupLink']")))
         self.driver.find_element_by_xpath("//button[@id='SubscriptionSetupLink']").click()
         time.sleep(5)
+        self.driver.close()
         print("ok")
+        return {"email":self.email, "phone":"","org":self.org}
     def gen_uid(self):
         letters = string.ascii_lowercase
         return ''.join(random.choice(letters) for i in range(4))
