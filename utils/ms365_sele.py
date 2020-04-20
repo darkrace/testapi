@@ -8,6 +8,7 @@ from testapi.settings import BASE_DIR
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import random
 from selenium.common.exceptions import TimeoutException
 
 class MS365():
@@ -18,7 +19,7 @@ class MS365():
         chrome_options.add_argument('--disable-dev-shm-usage')
         uniq = self.gen_uid()
         self.email = "superman_" + str(uniq) + "@techmonkey.com"
-        self.org = "justiceleague_" + str(uniq)
+        self.org = "ironman" + ''.join(random.sample('0123456789', 5))
         self.driver = webdriver.Chrome(
             executable_path=os.path.abspath(BASE_DIR+"/driver/chromedriver"),
             chrome_options=chrome_options)
