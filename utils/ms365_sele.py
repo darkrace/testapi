@@ -70,7 +70,7 @@ class MS365():
         self.driver.find_element_by_xpath("//input[@id='username']").send_keys("dark")
         self.driver.find_element_by_xpath("//input[@formcontrolname='password']").send_keys("C1sco1234!")
         self.driver.find_element_by_xpath("//input[@formcontrolname='confirmPassword']").send_keys("C1sco1234!")
-        time.sleep(1)
+        time.sleep(2)
         self.driver.find_element_by_xpath("//button[@data-bi-id='SignupNext']").click()
         WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@id='SubscriptionSetupLink']")))
         self.driver.find_element_by_xpath("//button[@id='SubscriptionSetupLink']").click()
