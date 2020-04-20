@@ -27,7 +27,7 @@ class MS365():
         time.sleep(5)
     def ms_create(self, number,code):
         delay =10
-        self.driver.get("https://signup.microsoft.com/create-account/signup?products=467EAB54-127B-42D3-B046-3844B860BEBF")
+        self.driver.get("https://signup.microsoft.com/create-account/signup?products=467EAB54-127B-42D3-B046-3844B860BEBF&country=GB")
         WebDriverWait(self.driver, delay).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit' and contains(.,'Next')]")))
         self.driver.find_element_by_xpath("//input[contains(@class,'c-text-field')]").send_keys(self.email)
         self.driver.find_element_by_xpath("//button[@type='submit' and contains(.,'Next')]").click()
