@@ -69,7 +69,7 @@ class MS365():
         try:
             self.driver.find_element_by_xpath("//button[contains(@id,'CheckAvailabilityButton')]").click()
         except:pass
-        time.sleep(2)
+        time.sleep(4)
         self.driver.find_element_by_xpath("//button[@id='moeraNextButton']").click()
         time.sleep(10)
         self.driver.find_element_by_xpath("//input[@id='username']").send_keys("dark")
