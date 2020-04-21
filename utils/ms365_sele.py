@@ -60,7 +60,7 @@ class MS365():
             return {"message": "Sorry, we need additional information to verify your identity. Please contact support.", "color":"red", "flag": True}
 
     def phone_verify(self, code):
-        delay = 10
+        delay = 30
         self.driver.find_element_by_xpath("//input[@id='hipVerificationCodeInput']").send_keys(code)
         self.driver.find_element_by_xpath("//button[@data-bi-id='SignupNext']").click()
         time.sleep(2)
@@ -77,7 +77,19 @@ class MS365():
         self.driver.find_element_by_xpath("//input[@formcontrolname='confirmPassword']").send_keys("C1sco1234!")
         time.sleep(2)
         self.driver.find_element_by_xpath("//button[@data-bi-id='SignupNext']").click()
-        time.sleep(5)
+        try:
+            WebDriverWait(self.driver, delay).until(
+                EC.presence_of_element_located((By.XPATH, "//button[@id='SubscriptionSetupLink']")))
+            time.sleep(3)
+            self.driver.find_element_by_xpath("//button[@id='SubscriptionSetupLink']").click()
+        except:pass
+        try:
+            WebDriverWait(self.driver, delay).until(
+                EC.presence_of_element_located((By.XPATH, "//button[contains(.,'Continue')]")))
+            time.sleep(3)
+            self.driver.find_element_by_xpath("//button[contains(.,'Continue')]").click()
+        except:pass
+
         self.driver.close()
         print("ok")
         return {"email":self.email, "phone":"","org":self.org}
